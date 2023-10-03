@@ -1,0 +1,69 @@
+type Mutation {
+  createProject(name: String!, slug: String): Project
+  createStripeCheckoutBillingPortalUrl(projectId: String!): String
+  createStripeCheckoutSession(plan: PaidPlan!, projectId: String!): String
+  inviteToProject(email: String!, projectId: String!): Boolean
+  removeUserFromProject(projectId: String!, userId: String!): Project
+  updateUser(name: String, userId: String!): User
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+enum PaidPlan {
+  pro
+}
+
+type Project {
+  id: String!
+  name: String
+  paidPlan: PaidPlan
+  slug: String
+  users(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ProjectUsersConnection!
+}
+
+type ProjectUsersConnection {
+  edges: [ProjectUsersConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type ProjectUsersConnectionEdge {
+  cursor: String!
+  node: User!
+}
+
+type Query {
+  currentUser: User
+  project(id: String, slug: String): Project
+}
+
+type User {
+  email: String!
+  id: String!
+  name: String
+  projects(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): UserProjectsConnection!
+}
+
+type UserProjectsConnection {
+  edges: [UserProjectsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserProjectsConnectionEdge {
+  cursor: String!
+  node: Project!
+}

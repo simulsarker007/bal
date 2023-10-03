@@ -1,0 +1,112 @@
+{
+  "name": "bedrock",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "predev": "yarn run generate",
+    "dev": "next dev",
+    "prebuild": "yarn run generate",
+    "build": "next build",
+    "start": "next start",
+    "start:ci": "INSECURE_AUTH=true yarn run start",
+    "eslint": "eslint --cache --cache-location=node_modules/.cache/.eslintcache --fix",
+    "lint": "yarn run eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier '**/*' --ignore-unknown --write",
+    "generate": "yarn run generate:prisma && yarn run generate:schema && yarn run generate:graphql-codegen",
+    "generate:prisma": "prisma generate",
+    "generate:schema": "cross-env GENERATE=true cross-env DOTENV_CONFIG_PATH=.env.example ts-node --require dotenv/config --transpile-only -P pothos.tsconfig.json src/server/graphql/schema.ts",
+    "generate:graphql-codegen": "graphql-codegen",
+    "prisma:migrate": "yarn prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "test": "jest",
+    "typecheck": "concurrently --raw yarn:typecheck:*",
+    "typecheck:app": "tsc --noEmit",
+    "typecheck:cypress": "tsc --noEmit -p cypress/tsconfig.json",
+    "cypress:open": "cypress open",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@graphql-yoga/node": "^2.13.12",
+    "@pothos/core": "^3.19.1",
+    "@pothos/plugin-prisma": "^3.31.1",
+    "@pothos/plugin-relay": "^3.24.0",
+    "@pothos/plugin-simple-objects": "^3.4.0",
+    "@prisma/client": "^4.2.0",
+    "@stripe/stripe-js": "^1.35.0",
+    "@urql/exchange-graphcache": "^4.4.3",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.1",
+    "graphql": "^16.5.0",
+    "graphql-tag": "^2.12.6",
+    "jsonwebtoken": "^8.5.1",
+    "next": "^12.2.4",
+    "next-connect": "^0.12.2",
+    "passport": "^0.5.3",
+    "passport-magic-login": "1.0.9",
+    "postmark": "^3.0.12",
+    "raw-body": "^2.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.3.0",
+    "slug": "^5.3.0",
+    "stripe": "^10.1.0",
+    "urql": "^2.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@graphql-codegen/cli": "^2.12.0",
+    "@graphql-codegen/near-operation-file-preset": "^2.4.1",
+    "@graphql-codegen/schema-ast": "^2.5.1",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-operations": "2.5.3",
+    "@graphql-codegen/typescript-urql": "^3.6.4",
+    "@graphql-codegen/typescript-urql-graphcache": "^2.3.3",
+    "@netlify/plugin-nextjs": "^4.14.1",
+    "@types/common-tags": "^1.8.1",
+    "@types/cookie-session": "^2.0.44",
+    "@types/jest": "^28.1.6",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^18.6.5",
+    "@types/passport": "^1.0.9",
+    "@types/react": "^18.0.17",
+    "@types/slug": "^5.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "common-tags": "1.8.2",
+    "concurrently": "^7.3.0",
+    "cross-env": "^7.0.3",
+    "cypress": "^10.7.0",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "lint-staged": "^13.0.3",
+    "next-prisma-plugin-webpack5": "^0.0.0-dripip",
+    "prettier": "^2.7.1",
+    "prisma": "^4.2.0",
+    "typescript": "^4.7.4"
+  },
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ],
+    "setupFilesAfterEnv": [
+      "./src/test/jest-setup.ts"
+    ],
+    "transform": {
+      "\\.tsx?$": [
+        "babel-jest",
+        {
+          "configFile": "./.babelrc.jest.js"
+        }
+      ]
+    }
+  },
+  "prisma": {
+    "schema": "src/server/db/schema.prisma"
+  }
+}
