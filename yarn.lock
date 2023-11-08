@@ -2553,10 +2553,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/cookie-session@^2.0.44":
-  version "2.0.44"
-  resolved "https://registry.yarnpkg.com/@types/cookie-session/-/cookie-session-2.0.44.tgz#86f3810bf19716ff716e08f877ce40cee9062267"
-  integrity sha512-3DheOZ41pql6raSIkqEPphJdhA2dX2bkS+s2Qacv8YMKkoCbAIEXbsDil7351ARzMqvfyDUGNeHGiRZveIzhqQ==
+"@types/cookie-session@^2.0.47":
+  version "2.0.47"
+  resolved "https://registry.yarnpkg.com/@types/cookie-session/-/cookie-session-2.0.47.tgz#2e758528f5405319e0fa296ededf775165a2f09b"
+  integrity sha512-Xw+NG/nKgEcnHmecFd4X81BfzZr8+Dj+mNigYLbZ8ZNhCSowsJCzpH47EiyabGnx/lDgPNWuq1r8LUIr8yt4lg==
   dependencies:
     "@types/express" "*"
     "@types/keygrip" "*"
